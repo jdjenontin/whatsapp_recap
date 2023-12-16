@@ -16,20 +16,21 @@ The exported data should be placed in the `chats` folder at the root of the proj
 
 ## Usage
 
-The project uses [Typer](https://typer.tiangolo.com/) for the CLI. It takes three optional options:
+The project uses [Typer](https://typer.tiangolo.com/) for the CLI. It takes three optional options and one mandatory argument:
 
 ```bash
-python main.py [OPTION]
+python main.py [OPTION] NAME
 ```
 
-- `--path`: The path to the chats folder, defaulting to chats.
+- `NAME`  Your WhatsApp name, as it appears in the chat files
+`--path`: The path to the chats folder, defaulting to chats.
 - `--year`: The year to analyze, defaulting to the current year.
 - `--number-of-top-persons`: The number of top persons for each category, defaulting to 10.
 
 Example 
 
 ```bash
-python main.py --year 2021 --path Chats --number-of-top-persons 12
+python main.py --year 2021 --path Chats --number-of-top-persons 12 "jdjenontin"
 ```
 
 The program generates five files:
