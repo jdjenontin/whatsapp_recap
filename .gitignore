@@ -1,0 +1,8 @@
+/__pycache__
+/chats/**
+**.json
+**.csv
+/.ruff_cache
+/report*.txt
+**_old.py
+/.pytest_cache

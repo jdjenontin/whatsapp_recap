@@ -1,0 +1,31 @@
+###################################
+#     WHATSAPP REPORT {{YEAR}}        #              
+###################################
+
+
+Total messages               : {{ total_messages }}
+Number of discussion         : {{ nb_discussion }}
+Number of message sent       : {{ nb_sent }}
+Number of message received   : {{ nb_received }}
+Number of day without message: {{ nb_day_without_message }}
+
+
+Top {{ n }} senders:
+-----------------------------------
+{% for sender in top_senders %}
+    {{ sender.person }}: {{ sender.sent_messages }} messages
+{% endfor %}
+
+
+Top {{ n }} receivers:
+-----------------------------------
+{% for receiver in top_receivers %}
+    {{ receiver.person }}: {{ receiver.received_messages }} messages
+{% endfor %}
+
+
+Top {{ n }} contacts:
+-----------------------------------
+{% for contact in top_contacts %}
+    {{ contact.person }}: {{ contact.total_messages }} messages
+{% endfor %}
