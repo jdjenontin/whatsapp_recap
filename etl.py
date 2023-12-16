@@ -46,7 +46,7 @@ def extract_messages(path: str) -> tuple:
     return text, second_person
 
 
-def transform_messages(text: str, second_person: str) -> list:
+def transform_messages(text: str, your_name: str, second_person: str) -> list:
     """
     Transforms the given text containing WhatsApp messages into a list of dictionaries representing each message.
 
@@ -72,18 +72,7 @@ def transform_messages(text: str, second_person: str) -> list:
         name = ma.group(2)
         message = ma.group(3).strip()
 
-        if (
-            name in [second_person, second_person.replace("_", "/")]
-        ):  # When a contact name contains a slash, it is replaced with an underscore in the file name
-            messages.append(
-                {
-                    "date": date_and_time,
-                    "sender": second_person,
-                    "receiver": "Me",
-                    "message": message,
-                }
-            )
-        else:
+        if name == your_name:  
             messages.append(
                 {
                     "date": date_and_time,
@@ -92,7 +81,16 @@ def transform_messages(text: str, second_person: str) -> list:
                     "message": message,
                 }
             )
-
+        else:
+            messages.append(
+                {
+                    "date": date_and_time,
+                    "sender": second_person,
+                    "receiver": "Me",
+                    "message": message,
+                }
+            )
+    
     return messages
 
 
@@ -111,7 +109,7 @@ def load_messages(messages: list) -> None:
         json.dump(messages, outfile, ensure_ascii=False, indent=4)
 
 
-def etl(path: str) -> None:
+def etl(path: str, name: str) -> None:
     """
     Extracts, transforms and loads the messages from a WhatsApp conversation.
 
@@ -126,6 +124,6 @@ def etl(path: str) -> None:
     messages = []
     for file in files:
         text, second_person = extract_messages(path + "/" + file)
-        messages.extend(transform_messages(text, second_person))
+        messages.extend(transform_messages(text, name, second_person))
 
     load_messages(messages)

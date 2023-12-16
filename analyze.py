@@ -37,6 +37,12 @@ def count_messages_per_day(messages: pd.DataFrame) -> pd.DataFrame:
     messages_per_day.columns = ["date", "messages"]
     return messages_per_day
 
+def count_messages_per_week_day(messages: pd.DataFrame) -> pd.DataFrame:
+    messages_per_week_day = (
+        messages.groupby(messages["date"].dt.day_name()).count()["message"].reset_index()
+    )
+    messages_per_week_day.columns = ["week_day", "messages"]
+    return messages_per_week_day
 
 def count_messages_per_month(messages: pd.DataFrame) -> pd.DataFrame:
     messages_per_month = (

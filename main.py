@@ -7,13 +7,14 @@ import analyze
 from reporter import Reporter
 import etl
 
-def main(path: Annotated[str, typer.Option(help="The path to the chats folder")] = "chats", 
+def main(name : Annotated[str, typer.Argument(help="Your WhatsApp name, as it appears in the chat files")],
+         path: Annotated[str, typer.Option(help="The path to the chats folder")] = "chats", 
          year: Annotated[int, typer.Option(help="The year to analyze")] = datetime.now().year, 
          number_of_top_persons: Annotated[int, typer.Option(help="The number of top persons for each category")] = 10
          ):
     
     print("Extracting...")
-    etl.etl(path)
+    etl.etl(path, name)
 
     year_messages = analyze.get_messages_in_year(year)
 
@@ -22,6 +23,7 @@ def main(path: Annotated[str, typer.Option(help="The path to the chats folder")]
     messages_per_sender = analyze.count_messages_per_sender(year_messages)
 
     messages_per_day = analyze.count_messages_per_day(year_messages)
+    messages_per_week_day = analyze.count_messages_per_week_day(year_messages)
     messages_per_month = analyze.count_messages_per_month(year_messages)
     messages_per_contact = analyze.messages_per_contact(year_messages)
     days_without_message = analyze.get_year_days_without_message(messages_per_day, year)
@@ -30,6 +32,7 @@ def main(path: Annotated[str, typer.Option(help="The path to the chats folder")]
     messages_per_day.to_csv("messages_per_day.csv", index=False)
     messages_per_month.to_csv("messages_per_month.csv", index=False)
     messages_per_contact.to_csv("messages_per_contact.csv", index=False)
+    messages_per_week_day.to_csv("messages_per_week_day.csv", index=False)
 
 
     # Report
