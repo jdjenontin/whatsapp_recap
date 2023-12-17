@@ -23,7 +23,7 @@ python main.py [OPTION] NAME
 ```
 
 - `NAME`  Your WhatsApp name, as it appears in the chat files
-`--path`: The path to the chats folder, defaulting to chats.
+- `--path`: The path to the chats folder, defaulting to chats.
 - `--year`: The year to analyze, defaulting to the current year.
 - `--number-of-top-persons`: The number of top persons for each category, defaulting to 10.
 
